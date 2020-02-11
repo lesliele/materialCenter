@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-02-10 15:18:06
- * @LastEditTime : 2020-02-10 19:13:52
+ * @LastEditTime : 2020-02-11 15:16:46
  * @LastEditors  : Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-ssr-tech\webpack.config.js
@@ -26,14 +26,24 @@ const config = {
                 loader: 'vue-loader'
             },
             {
+                test: /\.jsx$/,
+                loader: 'babel-loader'
+            },
+            {
                 test: /\.css$/,
                 use: ['vue-style-loader','css-loader']
             },
             {
-                test: /\.styl$/,
+                test: /\.styl(us)?$/,
                 use: [
-                    'vue-style-loader',
+                    'style-loader',
                     'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
                     'stylus-loader'
                 ]
             },
