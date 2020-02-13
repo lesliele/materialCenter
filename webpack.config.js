@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-02-10 15:18:06
- * @LastEditTime : 2020-02-11 15:16:46
+ * @LastEditTime : 2020-02-13 18:46:41
  * @LastEditors  : Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-ssr-tech\webpack.config.js
@@ -11,13 +11,14 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const isDev = process.env.NODE_ENV === 'development';
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const config = {
     target: 'web',
     entry: path.join(__dirname, 'src/main.js'),
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.[hash:8].js'
     },
     module: {
         rules: [
@@ -36,7 +37,9 @@ const config = {
             {
                 test: /\.styl(us)?$/,
                 use: [
-                    'style-loader',
+                    process.env.NODE_ENV !== 'production'
+                    ? 'vue-style-loader'
+                    : MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
                         loader: 'postcss-loader',
@@ -86,6 +89,16 @@ if (isDev) {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin()
     )
+} else {
+    // 开发环境使用hash(不能使用chunkhash,会报错),线上环境使用chunkhash
+    config.output.filename = 'bundle.[chunkhash:8].js';
+    // config.entry = {
+    //     main: path.join(__dirname, 'src/main.js'),
+    //     vendor: ['vue']
+    // }
+    config.plugins.push(new MiniCssExtractPlugin({
+        filename: '[name].[contenthash:8].css'
+    }))
 }
 
 module.exports = config;
