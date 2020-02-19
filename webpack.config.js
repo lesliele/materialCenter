@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-02-10 15:18:06
- * @LastEditTime : 2020-02-14 15:32:50
+ * @LastEditTime: 2020-02-19 12:01:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-ssr-tech\webpack.config.js
@@ -78,6 +78,11 @@ const config = {
         }),
         new CleanWebpackPlugin()
     ],
+    resolve: {
+        alias: {
+            '@': path.join(__dirname, 'src')
+        }
+    },
     optimization: {
         minimize: false,
 		splitChunks: {

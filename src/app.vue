@@ -2,7 +2,7 @@
  * @Author: your name
  * @Date: 2020-02-10 14:54:25
  * @LastEditTime : 2020-02-11 16:08:57
- * @LastEditors  : Please set LastEditors
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-ssr-tech\src\app.vue
  -->
@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import Header from './todo/header.vue';
-import Footer from './todo/footer.jsx';
-import Todo from './todo/todo.vue';
+import Header from '@/todo/header.vue';
+import Footer from '@/todo/footer.jsx';
+import Todo from '@/todo/todo.vue';
 
 export default {
     components: {
