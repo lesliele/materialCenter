@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2020-02-10 15:18:06
- * @LastEditTime: 2020-02-19 12:01:50
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \vue-ssr-tech\webpack.config.js
- */
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -18,7 +10,7 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const config = {
     target: 'web',
     entry: {
-        bundle: path.join(__dirname, 'src/main.js')
+        bundle: path.join(__dirname, 'client/main.js')
     },
     output: {
         path: path.join(__dirname, 'dist'),
@@ -39,6 +31,22 @@ const config = {
                 use: ['vue-style-loader','css-loader']
             },
             {
+                test: /\.less$/,
+                use: [
+                    process.env.NODE_ENV !== 'production' ?
+                    'vue-style-loader' :
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    'less-loader'
+                ]
+            },
+            {
                 test: /\.styl(us)?$/,
                 use: [
                     process.env.NODE_ENV !== 'production'
@@ -55,7 +63,7 @@ const config = {
                 ]
             },
             {
-                test: /\.(gif|jpg|jpeg|png|svg)$/,
+                test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
                 use: [
                     {
                         loader: 'url-loader',
@@ -79,6 +87,7 @@ const config = {
         new CleanWebpackPlugin()
     ],
     resolve: {
+        extensions: ['.js', '.vue'],
         alias: {
             '@': path.join(__dirname, 'src')
         }

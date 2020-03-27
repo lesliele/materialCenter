@@ -1,1 +1,4 @@
 /node_modules
+/server/db
+/server/assets/images/*
+/server/assets/videos/*
