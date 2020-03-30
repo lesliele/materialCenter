@@ -39,6 +39,9 @@ const rootControl = {
 
 // 先实现返回图片流(buffer)
 router.get("/assets/:file", async (ctx, next) => {
+    ctx.set({
+        'Cache-Control': 'private,max-age=13800'
+    });
     const file = ctx.params.file;
     const initFile = file.split('.');
     const suffix = initFile[initFile.length - 1];
