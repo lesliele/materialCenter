@@ -3,6 +3,7 @@
 
 使用Vue.extends方式对组件进行继承操作，便于挂载到全局使用.<br>
 利用Mongoose Web Server操作数据.
+对服务端进行优化，利用浏览器缓存进行读取资源.
 
 ## 开启服务
 1.安装MongoDB https://www.mongodb.com/download-center/community <br>
